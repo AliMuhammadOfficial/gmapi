@@ -1,0 +1,6 @@
+Create a page and request folwing data.
+  - Full Name
+  - Email Address
+  - Intrests (Chips)
+
+  Fetch The places from Google Map accrding the Intrest of user.
