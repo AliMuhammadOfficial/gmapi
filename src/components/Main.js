@@ -1,12 +1,11 @@
 import { makeStyles, 
     Container, Grid, TextField, 
-    Button, Card,  CardActions, 
-    CardContent, Typography} from "@material-ui/core";
+    Button, Card, 
+    CardContent, Icon} from "@material-ui/core";
 import { Autocomplete } from '@material-ui/lab';
 import { useState, useEffect } from "react";
 import Header from "./Header";
-import Icon from '@material-ui/core/Icon';
-import RoomIcon from '@material-ui/icons/Room';
+import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
 import GoogleMapReact from 'google-map-react';
 
 const useStyles = makeStyles((theme) => ({
@@ -89,8 +88,16 @@ export default function Main() {
 
 
 
-const AnyReactComponent = ({ text }) => <div style={{width: '20px', height: '20px', background: 'red', borderRadius:'20px'}}>{text}</div>;
- 
+const Mark = () => {
+  return (
+    <div>
+      <Icon color="secondary" fontSize="inherit">
+        <LocationOnOutlinedIcon style={{ fontSize: 36 }}  />
+      </Icon>
+    </div>
+  )
+}
+
 function SimpleMap() {
 
   const [center, setCenter] = useState({
@@ -109,13 +116,13 @@ function SimpleMap() {
   });
     return (
       // Important! Always set the container height explicitly
-      <div style={{ height: '500px', width: '100%' }}>
+      <div style={{ height: '500px', width: '100%' }} onWheel={setZoom(12)}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: 'AIzaSyCSWegjPmUcm6v8ptoiERXXArLzq4qPdig' }}
           defaultCenter={center}
           defaultZoom={zoom}
         >
-          <AnyReactComponent
+          <Mark
             lat={center.lat}
             lng={center.lng}
             text="Your Are Here"
