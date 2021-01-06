@@ -3,11 +3,11 @@ import { makeStyles,
     Button, Card,  CardActions, 
     CardContent, Typography} from "@material-ui/core";
 import { Autocomplete } from '@material-ui/lab';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Header from "./Header";
-
+import Icon from '@material-ui/core/Icon';
+import RoomIcon from '@material-ui/icons/Room';
 import GoogleMapReact from 'google-map-react';
- 
 
 const useStyles = makeStyles((theme) => ({
     containerMain: {
@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
     },
     mapCard: {
         marginTop: '20px',
+        marginBottom: '20px',
         height: '500px'
     }
   }));
@@ -75,7 +76,7 @@ export default function Main() {
                 </Grid> */}
                 <Card style={{height: '100%'}}>
                     <CardContent>
-                      <Map />
+                        <SimpleMap />
                     </CardContent>
                    
                 </Card>
@@ -84,30 +85,48 @@ export default function Main() {
         </main>
     )
 }
-const AnyReactComponent = ({text}) => <div>{text}</div>;
 
-function Map() {
-    const [center, setCenter] = useState({
-        lat: 59.95,
-        lng: 30.33
-    })
 
-    const [zoom, setZoom] = useState(11)
 
+
+const AnyReactComponent = ({ text }) => <div style={{width: '20px', height: '20px', background: 'red', borderRadius:'20px'}}>{text}</div>;
+ 
+function SimpleMap() {
+
+  const [center, setCenter] = useState({
+    lat: 59.95,
+    lng: 30.33
+  })
+
+  const [zoom, setZoom] = useState(11)
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(function(position) {
+        console.log("Latitude is :", position.coords.latitude);
+        console.log("Longitude is :", position.coords.longitude);
+        setCenter({lat: position.coords.latitude, lng: position.coords.longitude})
+      });
+  });
     return (
+      // Important! Always set the container height explicitly
+      <div style={{ height: '500px', width: '100%' }}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: 'AIzaSyCSWegjPmUcm6v8ptoiERXXArLzq4qPdig' }}
           defaultCenter={center}
           defaultZoom={zoom}
         >
           <AnyReactComponent
-            lat={59.955413}
-            lng={30.337844}
-            text="My Marker"
+            lat={center.lat}
+            lng={center.lng}
+            text="Your Are Here"
           />
         </GoogleMapReact>
-    )
-}
+      </div>
+    );
+  }
+
+
+
 
 const top100Films = [
     { title: 'The Shawshank Redemption', year: 1994 },
