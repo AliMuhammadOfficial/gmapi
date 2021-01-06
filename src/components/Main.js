@@ -118,7 +118,7 @@ function SimpleMap() {
       // Important! Always set the container height explicitly
       <div style={{ height: '500px', width: '100%' }} onWheel={setZoom(12)}>
         <GoogleMapReact
-          bootstrapURLKeys={{ key: 'AIzaSyCSWegjPmUcm6v8ptoiERXXArLzq4qPdig' }}
+          bootstrapURLKeys={{ key: '' }}
           defaultCenter={center}
           defaultZoom={zoom}
         >
